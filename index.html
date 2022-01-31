@@ -18,11 +18,21 @@
 
     <main class="d-flex">
         <aside class="col-lg-3">
-            <form class="d-flex flex-column search-form">
+            <div class="d-flex flex-column justify-content-around mb-2 search-form">
                 <h2>Search For A City:</h2>
-                <input type="text" placeholder="City Name" id="city-name" />
-                <button type="button" class="btn btn-primary btn-lg my-3" id="search-btn">Search</button>
-            </form>
+                <input type="text" placeholder="City Name" class="form-control" aria-describedby="inputGroup-sizing-lg" id="city-name" />
+                <button type="button" class="btn btn-primary btn-md my-2" id="search-btn">Search</button>
+            </div>
+            <div class="d-flex flex-column">
+                <button class="btn btn-secondary btn-md my-2">Austin</button>
+                <button class="btn btn-secondary btn-md my-2">Chicago</button>
+                <button class="btn btn-secondary btn-md my-2">New York</button>
+                <button class="btn btn-secondary btn-md my-2">Orlando</button>
+                <button class="btn btn-secondary btn-md my-2">San Fransisco</button>
+                <button class="btn btn-secondary btn-md my-2">Seattle</button>
+                <button class="btn btn-secondary btn-md my-2">Denver</button>
+                <button class="btn btn-secondary btn-md my-2">Atlanta</button>
+            </div>
         </aside>
 
         <section class="col-lg-9" id="info-display">
