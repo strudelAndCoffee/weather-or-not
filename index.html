@@ -12,6 +12,27 @@
   </head>
 
   <body>
+    <header class="col-12 text-center text-light py-3">
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <main class="d-flex">
+        <aside class="col-lg-3">
+            <form class="d-flex flex-column search-form">
+                <h2>Search For A City:</h2>
+                <input type="text" placeholder="City Name" id="city-name" />
+                <button type="button" class="btn btn-primary btn-lg my-3" id="search-btn">Search</button>
+            </form>
+        </aside>
+
+        <section class="col-lg-9" id="info-display">
+            <div id="today">
+                <h2 id="city-date">. . .</h2>
+            </div>
+
+            <div id="forecast"></div>
+        </section>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
