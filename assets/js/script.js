@@ -29,19 +29,37 @@ fetch(austin.url)
         var forecastEl = document.getElementById("forecast");
 
         for (var i = 1; i <= 5; i++) {
+            var icon = data.daily[i].weather[0].icon;
+            var temp = data.daily[i].temp.day;
+            var wind = data.daily[i].wind_speed;
+            var humidity = data.daily[i].humidity;
             var dayCard = document.createElement("div");
+            dayCard.className = "bg-dark text-light flex-grow-1 mr-3 pl-1";
 
-            var dayEl = document.createElement("h3");
+            var dayEl = document.createElement("h4");
             if (i === 1) {
                 dayEl.innerHTML = "Tomorrow";
             } else {
-                dayEl.innerHTML = moment().add(i, "d").format("ddd");
+                dayEl.innerHTML = moment().add(i, "d").format("dddd");
             }
             dayCard.appendChild(dayEl);
-            var dateEl = document.createElement("h3");
+            var dateEl = document.createElement("p");
+            dateEl.className = "my-0";
             dateEl.innerHTML = moment().add(i, "d").format("(M/D/YYYY)");
             dayCard.appendChild(dateEl);
-            
+
+            var iconEl = document.createElement("img");
+            iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + ".png");
+            dayCard.appendChild(iconEl);
+            var tempEl = document.createElement("p");
+            tempEl.innerHTML = "Temp: " + Math.round(temp) + deg;
+            dayCard.appendChild(tempEl);
+            var windEl = document.createElement("p");
+            windEl.innerHTML = "Wind: " + wind + " MPH";
+            dayCard.appendChild(windEl);
+            var humEl = document.createElement("p");
+            humEl.innerHTML = "Humidity: " + humidity + "%";
+            dayCard.appendChild(humEl);
             
             forecastEl.appendChild(dayCard);
         }
