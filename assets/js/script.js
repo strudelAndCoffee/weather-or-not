@@ -40,8 +40,22 @@ var atlanta = {
     name: "Atlanta ",
     url: "https://api.openweathermap.org/data/2.5/onecall?lat=33.7537&lon=-84.3863&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
 };
+var cityArray = [austin, chicago, newYork, orlando, sanFran, seattle, denver, atlanta];
+
+var cityBtnHandler = function(event) {
+    var target = event.target;
+
+    if (target.matches(".btn")) {
+        var cityId = target.getAttribute("data-city");
+        var city = cityArray[cityId];
+
+        displayCity(city);
+    }
+};
 
 var displayCity = function(city) {
+
+    document.querySelector("#forecast").innerHTML = "";
 
     fetch(city.url)
     .then(function(response) {
@@ -100,4 +114,4 @@ var displayCity = function(city) {
     });
 };
 
-displayCity(orlando);
+document.querySelector("#city-list").addEventListener("click", cityBtnHandler);
