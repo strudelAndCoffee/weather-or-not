@@ -31,10 +31,18 @@ fetch(austin.url)
         for (var i = 1; i <= 5; i++) {
             var dayCard = document.createElement("div");
 
-            var dateEl = document.createElement("h2");
+            var dayEl = document.createElement("h3");
+            if (i === 1) {
+                dayEl.innerHTML = "Tomorrow";
+            } else {
+                dayEl.innerHTML = moment().add(i, "d").format("ddd");
+            }
+            dayCard.appendChild(dayEl);
+            var dateEl = document.createElement("h3");
             dateEl.innerHTML = moment().add(i, "d").format("(M/D/YYYY)");
-            
             dayCard.appendChild(dateEl);
+            
+            
             forecastEl.appendChild(dayCard);
         }
     });
