@@ -1,10 +1,11 @@
 * {
     margin: 0;
     padding: 0;
+    font-weight: bold;
 }
 
 header {
-    background-image: linear-gradient(to right, skyBlue, darkGreen);
+    background-image: linear-gradient(to right, skyBlue, darkBlue);
 }
 
 .search-form {
@@ -12,7 +13,7 @@ header {
     border-bottom: 2px solid black;
 }
 
-#today {
+#current {
     border: 1px solid black;
     border-radius: 2px;
 }
