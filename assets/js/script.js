@@ -12,17 +12,25 @@ var searchCity = function(url) {
 
     fetch(apiUrl)
     .then(function(response) {
-        response.json()
-        .then(function(data) {
+        if (response.ok) {
+            response.json()
+            .then(function(data) {
 
-            var city = data[0].name;
-            var lat = data[0].lat;
-            var lon = data[0].lon;
-            var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
+                if (data.ok) {
+                    var city = data[0].name;
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+                    var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
 
-            displayCityWeather(city, url);
-            saveCity(city, url);
-        })
+                    displayCityWeather(city, url);
+                    saveCity(city, url);
+                } else {
+                    alert("City name not recognized. Please try again.");
+                }
+            })
+        } else {
+            alert("Cannot complete request at this time.");
+        }
     });
 };
 
