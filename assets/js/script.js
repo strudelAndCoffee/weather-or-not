@@ -2,12 +2,12 @@
 // one call url: "https://api.openweathermap.org/data/2.5/onecall?lat={}lon={}&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
 // weather icon url: "http://openweathermap.org/img/wn/10d.png"
 
-// Global variables
+// Global Variables
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
 var savedCitiesArr = [];
 
-// Global functions
+// Global Functions
 // extracts latitude and longitude from searched city and sends url and name to weather display function
 var searchCity = function(url) {
 
@@ -100,6 +100,7 @@ var displayCityWeather = function(city, url) {
     });
 };
 
+// saves searched city's name/url to saved array
 var createSavedCity = function(city, apiUrl) {
     var index = savedCitiesArr.length;
 
@@ -116,11 +117,9 @@ var createSavedCity = function(city, apiUrl) {
     };
 
     savedCitiesArr.push(savedCityObj);
-    console.log(savedCitiesArr);
-    console.log(cityBtn);
 };
 
-// Global event listeners
+// Global Event Listeners
 // city search button
 document.querySelector(".search-form").addEventListener("click", function(event) {
     var target = event.target;
@@ -144,8 +143,8 @@ document.querySelector("#city-list").addEventListener("click", function(event) {
     var target = event.target;
 
     if (target.matches(".btn")) {
-        var cityId = target.getAttribute("data-city");
-        var cityObj = cityArray[cityId];
+        var cityIndex = target.getAttribute("data-index");
+        var cityObj = savedCitiesArr[cityIndex];
 
         displayCityWeather(cityObj.name, cityObj.url);
     }
