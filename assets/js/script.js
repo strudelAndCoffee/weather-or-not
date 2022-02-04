@@ -42,17 +42,6 @@ var atlanta = {
 };
 var cityArray = [austin, chicago, newYork, orlando, sanFran, seattle, denver, atlanta];
 
-var cityBtnHandler = function(event) {
-    var target = event.target;
-
-    if (target.matches(".btn")) {
-        var cityId = target.getAttribute("data-city");
-        var city = cityArray[cityId];
-
-        displayCity(city);
-    }
-};
-
 var displayCity = function(city) {
 
     document.querySelector("#forecast").innerHTML = "";
@@ -114,4 +103,13 @@ var displayCity = function(city) {
     });
 };
 
-document.querySelector("#city-list").addEventListener("click", cityBtnHandler);
+document.querySelector("#city-list").addEventListener("click", function(event) {
+    var target = event.target;
+
+    if (target.matches(".btn")) {
+        var cityId = target.getAttribute("data-city");
+        var city = cityArray[cityId];
+
+        displayCity(city);
+    }
+});
