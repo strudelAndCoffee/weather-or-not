@@ -3,9 +3,9 @@
 // weather icon url: "http://openweathermap.org/img/wn/10d.png"
 
 // Global variables
-// display formats
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
+var savedCitiesArr = [];
 
 // Global functions
 // extracts latitude and longitude from searched city and sends url and name to weather display function
@@ -22,6 +22,7 @@ var searchCity = function(url) {
             var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
 
             displayCityWeather(city, url);
+            createSavedCity(city, url);
         })
     });
 };
@@ -34,8 +35,7 @@ var displayCityWeather = function(city, url) {
     fetch(url)
     .then(function(response) {
         response.json()
-        .then(function(data){
-            console.log(data);
+        .then(function(data) {
 
             var currentIconUrl = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png";
             var currentTemp = data.current.temp;
@@ -100,6 +100,26 @@ var displayCityWeather = function(city, url) {
     });
 };
 
+var createSavedCity = function(city, apiUrl) {
+    var index = savedCitiesArr.length;
+
+    var savedCityList = document.querySelector("#city-list");
+    var cityBtn = document.createElement("button");
+    cityBtn.className = "btn btn-secondary btn-md my-2";
+    cityBtn.setAttribute("data-index", index);
+    cityBtn.textContent = city;
+    savedCityList.appendChild(cityBtn);
+
+    var savedCityObj = {
+        name: city,
+        url: apiUrl
+    };
+
+    savedCitiesArr.push(savedCityObj);
+    console.log(savedCitiesArr);
+    console.log(cityBtn);
+};
+
 // Global event listeners
 // city search button
 document.querySelector(".search-form").addEventListener("click", function(event) {
@@ -119,7 +139,7 @@ document.querySelector(".search-form").addEventListener("click", function(event)
         textInput.value = "";
     }
 });
-// city quick list buttons
+// saved city list buttons
 document.querySelector("#city-list").addEventListener("click", function(event) {
     var target = event.target;
 
