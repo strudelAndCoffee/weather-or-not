@@ -5,7 +5,8 @@
 // Global Variables
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
-var savedCitiesArr = [];
+var savedCities = JSON.parse(localStorage.getItem("cities"));
+var visitedCities = [];
 
 // Global Functions
 // extracts latitude and longitude from searched city and sends url and name to weather display function
@@ -22,7 +23,7 @@ var searchCity = function(url) {
             var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
 
             displayCityWeather(city, url);
-            createSavedCity(city, url);
+            saveCity(city, url);
         })
     });
 };
@@ -100,23 +101,55 @@ var displayCityWeather = function(city, url) {
     });
 };
 
-// saves searched city's name/url to saved array
-var createSavedCity = function(city, apiUrl) {
-    var index = savedCitiesArr.length;
+// saves searched city's name/url to local storage
+var saveCity = function(city, apiUrl) {
 
-    var savedCityList = document.querySelector("#city-list");
-    var cityBtn = document.createElement("button");
-    cityBtn.className = "btn btn-secondary btn-md my-2";
-    cityBtn.setAttribute("data-index", index);
-    cityBtn.textContent = city;
-    savedCityList.appendChild(cityBtn);
-
-    var savedCityObj = {
+    var btnIndex;
+    var cityObj = {
         name: city,
         url: apiUrl
     };
 
-    savedCitiesArr.push(savedCityObj);
+    if (!savedCities) {
+        var btnIndex = 0;
+    } else {
+        var btnIndex = savedCities.length;
+    }
+    
+    createCityBtn(city, btnIndex);
+
+    visitedCities.push(cityObj);
+    localStorage.setItem("cities", JSON.stringify(visitedCities));
+    savedCities = JSON.parse(localStorage.getItem("cities"));
+}
+
+// creates buttons for visited cities
+var createCityBtn = function(city, btnIndex) {
+
+    var visitedCityList = document.querySelector("#city-list");
+    var cityBtn = document.createElement("button");
+    cityBtn.className = "btn btn-secondary btn-md my-2";
+    cityBtn.setAttribute("data-index", btnIndex);
+    cityBtn.textContent = city;
+    visitedCityList.appendChild(cityBtn);
+};
+
+// generates buttons for cities saved in local storage
+var loadCityBtns = function() {
+
+    visitedCities = [];
+    
+    if (!savedCities) {
+        return;
+    } else {
+        for (var i = 0; i < savedCities.length; i++) {
+            var city = savedCities[i].name;
+            var btnIndex = i;
+
+            createCityBtn(city, btnIndex);
+            visitedCities.push(savedCities[i]);
+        }
+    }
 };
 
 // Global Event Listeners
@@ -144,8 +177,10 @@ document.querySelector("#city-list").addEventListener("click", function(event) {
 
     if (target.matches(".btn")) {
         var cityIndex = target.getAttribute("data-index");
-        var cityObj = savedCitiesArr[cityIndex];
+        var cityObj = savedCities[cityIndex];
 
         displayCityWeather(cityObj.name, cityObj.url);
     }
 });
+
+loadCityBtns();
