@@ -8,7 +8,9 @@ var visitedCities = [];
 // extracts latitude and longitude from searched city and sends url and name to weather display function
 var searchCity = function(url) {
 
-    fetch(url)
+    var apiUrl = "https://" + url;
+
+    fetch(apiUrl)
     .then(function(response) {
         response.json()
         .then(function(data) {
@@ -161,7 +163,7 @@ document.querySelector(".search-form").addEventListener("click", function(event)
             return;
         } else {
             var city = textInput.value;
-            var url = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&appid=13ddc6bf74170f310b01600989915eea";
+            var url = "api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&appid=13ddc6bf74170f310b01600989915eea";
             searchCity(url);
         }
         textInput.value = "";
