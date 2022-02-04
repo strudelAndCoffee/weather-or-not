@@ -1,6 +1,10 @@
-# weather-or-not
+# Weather-or-Not Weather Dashboard
 
+This application lets you search for any city in the US, and displays the current weather conditions, as well as the 5 day forecast for that city. Cities that you search for are saved on the page for quick access, and persist over multiple browser sessions.
 
+https://strudelandcoffee.github.io/weather-or-not/
+
+This application was developed as a weekly challenge for the University of Texas Code Boot Camp. All code is original, except where cited. A mockup for page layout and style was provided, and functionality guidelines were given through a user story and acceptance criteria.
 
 ## User Story
 
