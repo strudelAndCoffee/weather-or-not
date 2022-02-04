@@ -1,49 +1,14 @@
 // geocode call: "http://api.openweathermap.org/geo/1.0/direct?q={city},{state},{country}&limit=1&appid=13ddc6bf74170f310b01600989915eea"
 // one call url: "https://api.openweathermap.org/data/2.5/onecall?lat={}lon={}&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
 // weather icon url: "http://openweathermap.org/img/wn/10d.png"
-// to fahrenheight: units=imperial
 
 // Global variables
 // display formats
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
-// city objects
-var austin = {
-    name: "Austin ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=30.2666&lon=-97.7333&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var chicago = {
-    name: "Chicago ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=41.8818&lon=-87.6231&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var newYork = {
-    name: "New York ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=40.7306&lon=-73.9352&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var orlando = {
-    name: "Orlando ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=28.5383&lon=-81.3792&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var sanFran = {
-    name: "San Francisco ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=37.7739&lon=-122.4312&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var seattle = {
-    name: "Seattle ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=47.6080&lon=-122.3351&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var denver = {
-    name: "Denver ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=39.7420&lon=-104.9915&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var atlanta = {
-    name: "Atlanta ",
-    url: "https://api.openweathermap.org/data/2.5/onecall?lat=33.7537&lon=-84.3863&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-};
-var cityArray = [austin, chicago, newYork, orlando, sanFran, seattle, denver, atlanta];
 
 // Global functions
-//
+// extracts latitude and longitude from searched city and sends url and name to weather display function
 var searchCity = function(url) {
 
     fetch(url)
@@ -76,6 +41,7 @@ var displayCityWeather = function(city, url) {
             var currentTemp = data.current.temp;
             var currentUv = data.current.uvi;
 
+            // current weather display
             var cityDateEl = document.getElementById("city-date");
             cityDateEl.innerHTML = city + " " + todaysDate + "<img src=" + currentIconUrl + " />";
             document.querySelector("#temp").textContent = Math.round(currentTemp) + deg;
@@ -92,6 +58,7 @@ var displayCityWeather = function(city, url) {
                 document.querySelector("#uv").setAttribute("class", "badge badge-danger");
             }
             
+            // 5 day forecast display
             var forecastEl = document.getElementById("forecast");
 
             for (var i = 1; i <= 5; i++) {
@@ -159,7 +126,6 @@ document.querySelector("#city-list").addEventListener("click", function(event) {
     if (target.matches(".btn")) {
         var cityId = target.getAttribute("data-city");
         var cityObj = cityArray[cityId];
-
 
         displayCityWeather(cityObj.name, cityObj.url);
     }
