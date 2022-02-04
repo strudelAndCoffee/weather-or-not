@@ -1,7 +1,3 @@
-// geocode call: "http://api.openweathermap.org/geo/1.0/direct?q={city},{state},{country}&limit=1&appid=13ddc6bf74170f310b01600989915eea"
-// one call url: "https://api.openweathermap.org/data/2.5/onecall?lat={}lon={}&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
-// weather icon url: "http://openweathermap.org/img/wn/10d.png"
-
 // Global Variables
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
@@ -38,7 +34,7 @@ var displayCityWeather = function(city, url) {
         response.json()
         .then(function(data) {
 
-            var currentIconUrl = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png";
+            var currentIconUrl = "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png";
             var currentTemp = data.current.temp;
             var currentUv = data.current.uvi;
 
@@ -83,7 +79,7 @@ var displayCityWeather = function(city, url) {
                 dayCard.appendChild(dateEl);
 
                 var iconEl = document.createElement("img");
-                iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + ".png");
+                iconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + icon + ".png");
                 dayCard.appendChild(iconEl);
                 var tempEl = document.createElement("p");
                 tempEl.innerHTML = "Temp: " + Math.round(temp) + deg;
@@ -165,7 +161,7 @@ document.querySelector(".search-form").addEventListener("click", function(event)
             return;
         } else {
             var city = textInput.value;
-            var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&appid=13ddc6bf74170f310b01600989915eea";
+            var url = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&appid=13ddc6bf74170f310b01600989915eea";
             searchCity(url);
         }
         textInput.value = "";
