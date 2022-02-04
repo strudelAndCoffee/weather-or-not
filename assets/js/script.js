@@ -42,6 +42,8 @@ var atlanta = {
 };
 var cityArray = [austin, chicago, newYork, orlando, sanFran, seattle, denver, atlanta];
 
+// Global functions
+// gets data from selected city object url and displays data on main section
 var displayCity = function(city) {
 
     document.querySelector("#forecast").innerHTML = "";
@@ -103,6 +105,8 @@ var displayCity = function(city) {
     });
 };
 
+// Global event listeners
+// city quick list buttons
 document.querySelector("#city-list").addEventListener("click", function(event) {
     var target = event.target;
 
