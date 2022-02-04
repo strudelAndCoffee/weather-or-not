@@ -1,4 +1,4 @@
-// wetaher data one call: "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=13ddc6bf74170f310b01600989915eea"
+// geocode call: "http://api.openweathermap.org/geo/1.0/direct?q={city},{state},{country}&limit=1&appid=13ddc6bf74170f310b01600989915eea"
 // one call url: "https://api.openweathermap.org/data/2.5/onecall?lat={}lon={}&units=imperial&appid=13ddc6bf74170f310b01600989915eea"
 // weather icon url: "http://openweathermap.org/img/wn/10d.png"
 // to fahrenheight: units=imperial
@@ -43,6 +43,21 @@ var atlanta = {
 var cityArray = [austin, chicago, newYork, orlando, sanFran, seattle, denver, atlanta];
 
 // Global functions
+//
+var searchCity = function(url) {
+    var location = [];
+
+    fetch(url)
+    .then(function(response) {
+        response.json()
+        .then(function(data) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+            location.push(lat, lon);
+        })
+    });
+};
+
 // gets data from selected city object url and displays data on main section
 var displayCity = function(city) {
 
@@ -106,6 +121,24 @@ var displayCity = function(city) {
 };
 
 // Global event listeners
+// city search button
+document.querySelector(".search-form").addEventListener("click", function(event) {
+    var target = event.target;
+
+    if (target.matches("#search-btn")) {
+        var textInput = document.querySelector("#city-name");
+
+        if (!textInput.value) {
+            textInput.value = "";
+            return;
+        } else {
+            var city = textInput.value;
+            var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&appid=13ddc6bf74170f310b01600989915eea";
+            searchCity(url);
+        }
+        textInput.value = "";
+    }
+});
 // city quick list buttons
 document.querySelector("#city-list").addEventListener("click", function(event) {
     var target = event.target;
