@@ -16,16 +16,15 @@ var searchCity = function(url) {
             response.json()
             .then(function(data) {
 
-                if (data.ok) {
+                if (!data[0]) {
+                    alert("City name not recognized. Please try again");
+                } else {
                     var city = data[0].name;
                     var lat = data[0].lat;
                     var lon = data[0].lon;
                     var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
-
                     displayCityWeather(city, url);
                     saveCity(city, url);
-                } else {
-                    alert("City name not recognized. Please try again.");
                 }
             })
         } else {
