@@ -41,4 +41,4 @@ WHEN I click on a city in the search history
 
 The following image demonstrates the application functionality:
 
-![weather dashboard demo](https://github.com/strudelAndCoffee/weather-or-not/blob/main/assets/images/demo-screencap.png?raw=true)
+![weather dashboard demo](https://github.com/strudelAndCoffee/weather-or-not/blob/main/assets/images/demo-image.png?raw=true)
