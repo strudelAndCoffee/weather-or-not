@@ -51,14 +51,12 @@ var searchCity = function(url) {
         response.json()
         .then(function(data) {
 
-            var location = [];
+            var city = data[0].name;
             var lat = data[0].lat;
             var lon = data[0].lon;
-            location.push(lat, lon);
+            var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
 
-            var name = data[0].name;
-
-
+            displayCityWeather(city, url);
         })
     });
 };
