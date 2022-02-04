@@ -4,7 +4,9 @@ This application lets you search for any city in the US, and displays the curren
 
 https://strudelandcoffee.github.io/weather-or-not/
 
-This application was developed as a weekly challenge for the University of Texas Code Boot Camp. All code is original, except where cited. A mockup for page layout and style was provided, and functionality guidelines were given through a user story and acceptance criteria.
+This application was developed as a weekly challenge for the University of Texas Code Boot Camp, and utilizes the OpenWeather API (https://openweathermap.org/api/one-call-api), as well as Bootstrap and Moment.js.
+
+All code is original, except where cited. A mockup for page layout and style was provided, and functionality guidelines were given through a user story and acceptance criteria.
 
 ## User Story
 
