@@ -45,25 +45,30 @@ var cityArray = [austin, chicago, newYork, orlando, sanFran, seattle, denver, at
 // Global functions
 //
 var searchCity = function(url) {
-    var location = [];
 
     fetch(url)
     .then(function(response) {
         response.json()
         .then(function(data) {
+
+            var location = [];
             var lat = data[0].lat;
             var lon = data[0].lon;
             location.push(lat, lon);
+
+            var name = data[0].name;
+
+
         })
     });
 };
 
 // gets data from selected city object url and displays data on main section
-var displayCity = function(city) {
+var displayCityWeather = function(city, url) {
 
     document.querySelector("#forecast").innerHTML = "";
 
-    fetch(city.url)
+    fetch(url)
     .then(function(response) {
         response.json()
         .then(function(data){
@@ -71,14 +76,24 @@ var displayCity = function(city) {
 
             var currentIconUrl = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png";
             var currentTemp = data.current.temp;
+            var currentUv = data.current.uvi;
 
             var cityDateEl = document.getElementById("city-date");
-            cityDateEl.innerHTML = city.name + todaysDate + "<img src=" + currentIconUrl + " />";
+            cityDateEl.innerHTML = city + " " + todaysDate + "<img src=" + currentIconUrl + " />";
             document.querySelector("#temp").textContent = Math.round(currentTemp) + deg;
             document.querySelector("#wind").textContent = data.current.wind_speed + " MPH";
             document.querySelector("#humidity").textContent = data.current.humidity + " %";
-            document.querySelector("#uv").textContent = data.current.uvi;
-
+            document.querySelector("#uv").textContent = currentUv;
+            if (currentUv <= 2) {
+                document.querySelector("#uv").setAttribute("class", "badge badge-success");
+            }
+            else if (currentUv > 2 && currentUv <= 7) {
+                document.querySelector("#uv").setAttribute("class", "badge badge-warning");
+            }
+            else {
+                document.querySelector("#uv").setAttribute("class", "badge badge-danger");
+            }
+            
             var forecastEl = document.getElementById("forecast");
 
             for (var i = 1; i <= 5; i++) {
@@ -145,8 +160,9 @@ document.querySelector("#city-list").addEventListener("click", function(event) {
 
     if (target.matches(".btn")) {
         var cityId = target.getAttribute("data-city");
-        var city = cityArray[cityId];
+        var cityObj = cityArray[cityId];
 
-        displayCity(city);
+
+        displayCityWeather(cityObj.name, cityObj.url);
     }
 });
