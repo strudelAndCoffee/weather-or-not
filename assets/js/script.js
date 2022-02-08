@@ -1,4 +1,5 @@
 // Global Variables
+var appid = "appid=13ddc6bf74170f310b01600989915eea";
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
 var savedCities = JSON.parse(localStorage.getItem("cities"));
@@ -22,7 +23,7 @@ var searchCity = function(url) {
                     var city = data[0].name;
                     var lat = data[0].lat;
                     var lon = data[0].lon;
-                    var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=13ddc6bf74170f310b01600989915eea";
+                    var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&";
                     displayCityWeather(city, url);
                     saveCity(city, url);
                 }
@@ -36,9 +37,11 @@ var searchCity = function(url) {
 // gets data from selected city object url and displays data on main section
 var displayCityWeather = function(city, url) {
 
+    var apiUrl = url + appid;
+
     document.querySelector("#forecast").innerHTML = "";
 
-    fetch(url)
+    fetch(apiUrl)
     .then(function(response) {
         response.json()
         .then(function(data) {
@@ -170,7 +173,7 @@ document.querySelector(".search-form").addEventListener("click", function(event)
             return;
         } else {
             var city = textInput.value;
-            var url = "api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&appid=13ddc6bf74170f310b01600989915eea";
+            var url = "api.openweathermap.org/geo/1.0/direct?q=" + city + ",us&limit=1&" + appid;
             searchCity(url);
         }
         textInput.value = "";
