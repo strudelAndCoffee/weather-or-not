@@ -1,5 +1,5 @@
 // Global Variables
-var appid = "appid=13ddc6bf74170f310b01600989915eea";
+var appid = "";
 var todaysDate = moment().format("(M/D/YYYY)");
 var deg = "°F";
 var savedCities = JSON.parse(localStorage.getItem("cities"));
